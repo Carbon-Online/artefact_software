@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "df7c2e13a8be5f4a918789f90901be6733b2bfb0a087bb873f5368945bc27b3c"
+            "sha256": "5eabe990bf3a02fe29562dbc5927bc0d91e54b2cf3fb57e1a106412e92740b74"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -16,6 +16,14 @@
         ]
     },
     "default": {
+        "pip": {
+            "hashes": [
+                "sha256:c146f331f0805c77017c6bb9740cec4a49a0d4582d0c3cc8244b057f83eca359",
+                "sha256:f29d589df8c8ab99c060e68ad294c4a9ed896624f6368c5349d70aa581b333d0"
+            ],
+            "markers": "python_version >= '3.7'",
+            "version": "==22.0.3"
+        },
         "python-vlc": {
             "hashes": [
                 "sha256:566f2f7c303f6800851cacc016df1c6eeec094ad63e0a49d87db9d698094f1fb",
@@ -37,6 +45,13 @@
             ],
             "index": "pypi",
             "version": "==0.7.1"
+        },
+        "rpimotorlib": {
+            "hashes": [
+                "sha256:105977ad80e4ef8726741bcfd8380d56987309e68c91d1ff5b3bc7c5aee82dd8"
+            ],
+            "index": "pypi",
+            "version": "==3.1"
         }
     },
     "develop": {}

@@ -20,9 +20,9 @@ FRITZBOX_IP_ADDRESS=192.168.178.1
 
 # Application settings
 # Path to your python version in pipenv
-PYTHON_PIPENV_PATH=/home/pi/.local/share/virtualenvs/cloud-to-cloud-NTmyZdzI/bin/python3
+PYTHON_PIPENV_PATH=/home/pi/.local/share/virtualenvs/artefact_software-UKji4wqU/bin/python3
 
-PYTHON_MAIN_FILE_PATH=/home/pi/Documents/codingIxD/cloud-to-cloud/src/main.py
+PYTHON_MAIN_FILE_PATH=/home/pi/Documents/codingIxD/artefact_software/src/main.py
 
 # Start application script
 if [ -z "$FRITZPWD" ] || [ -z "$FRITZUSER" ]  ; then echo "Username/Password empty. Usage: $0 <username> <password>" ; exit 1; fi
@@ -56,4 +56,5 @@ if [[ $SID =~ ^0+$ ]] ; then echo "Login failed. Did you create & use explicit F
 echo "Capturing traffic on Fritz!Box interface $IFACE ..." 1>&2
 
 # Capture traffic
-ping $FRITZBOX_IP_ADDRESS & wget --no-check-certificate -qO- $FRITZIP/cgi-bin/capture_notimeout?ifaceorminor=$IFACE\&snaplen=\&capture=Start\&sid=$SID | sudo /usr/bin/tshark -i - -T ek | sudo $PYTHON_PIPENV_PATH $PYTHON_MAIN_FILE_PATH
+#ping $FRITZBOX_IP_ADDRESS & 
+wget --no-check-certificate -qO- $FRITZIP/cgi-bin/capture_notimeout?ifaceorminor=$IFACE\&snaplen=\&capture=Start\&sid=$SID | sudo /usr/bin/tshark -i - -T ek | sudo $PYTHON_PIPENV_PATH $PYTHON_MAIN_FILE_PATH
