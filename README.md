@@ -1,11 +1,15 @@
-# CO2online artefact software
+# CO<sub>2</sub>NLINE artefact software
 This repository contains a software to capture your home network traffic and control a to an artefact coppled servo motor according to the amounts of captured transmitted data.
 
 ## Contents
-- [Description](#description)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Acknowledgements](#acknowledgements)
+* [Description](#description)
+  + [Base project](#base-project)
+  + [Functionality and architecture](#functionality-and-architecture)
+  + [Implementation](#implementation)
+  + [Technical setup](#technical-setup)
+* [Installation](#installation)
+* [Usage](#usage)
+* [Acknowledgements](#acknowledgements)
 
 ## Description
 ### Base project
@@ -26,33 +30,50 @@ Every hour, the "RunArtefact" process uses this value and updates its CarbonBudg
 The software is developed in debian [...] on a Raspberry pi 3 Model B as it is capable to control a servo motor, display sounds and capture the data traffic. The software is implemented using Shell and Python. The shell scripts are used to capture the data traffic and build a pipe. Therefore tshark [...] is used because it can read binary pcap files written by the Fritzbox. Python has a wide range of libraries and is easy to handle. This is used to combine the functionality of reading the pipe and controlling the artefact.
 Therefore following python package versions were used:
 
+```
 "rpi.gpio" = "*"
 python-vlc = "*"
-python_version = "3.9"
+rpimotorlib = "*"
+```
+### Technical setup
 
-### Technical details
+A [NEMA 11-size hybrid bipolar stepping motor](https://www.pololu.com/product/1205/specs) is used which has 200 steps per revolution, and can operate at at 60 RPM. 
+
+The motor is controlled and connected to the raspberry pi via a [L298N H-bridge](http://www.st.com/resource/en/datasheet/l298.pdf).
+
+The hardware is connected like shown here ([Image source](https://i.stack.imgur.com/JyKhm.jpg)):
+![alt text](https://github.com/Carbon-Online/artefact_software/blob/main/data/technical_setup.png)
+
+In this setup the raspberry Pi GPIO Pins = [18, 17, 27, 22] are choosen.
+
+Further details can be found in this [tutorial](https://github.com/gavinlyonsrepo/RpiMotorLib/blob/master/Documentation/Nema11L298N.md).
 
 ## Installation
-!! Make sure you have tshark, Python 3.9 and pipenv installed. !!
+**!! Make sure you have tshark, Python 3.9 and pipenv installed. !!**
 
-Clone the repository from git:
-`git clone https://github.com/Carbon-Online/ar_application.git`
-
-Navigate to the project and activate the pipenv once:
-`cd artefact_software`
-`pipenv install`
-
-Adapt the settings (path to media file, GPIO pins used) in the src/settings.py file using your favorite texteditor.
-Adapt the settings in the src/fritzdump.sh and the scr/serverdump.sh file (Fritzbox login data, path to pipenv and src/main.py file) using your favorite texteditor.
-
-Connect the GPIO pins of the raspberry pi with the treiber and the motor as explained in this tutorial [...].
-Connect the raspberry pi to the desired network and a sound device via eg.`raspi-config`.
+1. Clone the repository from git:
+```
+git clone https://github.com/Carbon-Online/artefact_software.git
+```
+2. Navigate to the project and activate the pipenv once:
+``` 
+cd artefact_software
+pipenv install
+```
+3. Adapt the settings (path to media file, GPIO pins used) in the src/settings.py file using your favorite texteditor.
+4. Adapt the settings in the src/fritzdump.sh and the scr/serverdump.sh file (Fritzbox login data, path to pipenv and src/main.py file) using your favorite texteditor.
+5. Connect the GPIO pins of the raspberry pi with the treiber and the motor.
+6. Connect the raspberry pi to the desired network and a sound device via eg.`raspi-config`.
 
 ## Usage
-Start to sniff the data traffic on your fritzbox: 
-
-Or on your local device interface:
-
+1. Start to sniff the data traffic on your fritzbox: 
+```
+bash src/fritzboxdump.sh
+```
+2. Or on your local device interface:
+```
+bash src/serverdump.sh
+```
 Play around with your budget and change therefore the settings in the settings.py file.
 
 ## Acknowledgements
