@@ -69,7 +69,7 @@ class Artefact:
             self.motor_pins,
             steps=step_number,
             steptype="full",
-            counterclockwise=counterclockwise,
+            ccwise=counterclockwise,
         )
         self.current_position -= step_number
 
