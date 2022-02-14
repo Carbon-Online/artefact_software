@@ -27,9 +27,15 @@ Every hour, the "RunArtefact" process uses this value and updates its CarbonBudg
 ![alt text](https://github.com/Carbon-Online/artefact_software/blob/main/data/artefact_software_process_architecture.png)
 
 ### Implementation
-The software is developed in debian [...] on a Raspberry pi 3 Model B as it is capable to control a servo motor, display sounds and capture the data traffic. The software is implemented using Shell and Python. The shell scripts are used to capture the data traffic and build a pipe. Therefore tshark [...] is used because it can read binary pcap files written by the Fritzbox. Python has a wide range of libraries and is easy to handle. This is used to combine the functionality of reading the pipe and controlling the artefact.
+The software is developed in debian on a Raspberry pi 3 Model B as it is capable to control a servo motor, display sounds and capture the data traffic. The following system version is used:
+```
+Distributor ID: Raspbian
+Description: Raspbian GNU/Linux 9.13 (stretch)
+Release: 9.13
+Codename: stretch
+```
+The software is implemented using Shell and Python. The shell scripts are used to capture the data traffic and build a pipe. Therefore tshark (Version: `TShark (Wireshark) 2.6.20 (Git v2.6.20 packaged as 2.6.20-0+deb9u2)`) is used because it can read binary pcap files written by the Fritzbox. Python has a wide range of libraries and is easy to handle. This is used to combine the functionality of reading the pipe and controlling the artefact.
 Therefore following python package versions were used:
-
 ```
 "rpi.gpio" = "*"
 python-vlc = "*"
