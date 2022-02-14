@@ -1,7 +1,7 @@
 import math
 
 # Total (!) path to played audio file
-PATH_TO_AUDIO = "/home/pi/Documents/codingIxD/artefact_software/data/thriller.mp3"
+PATH_TO_AUDIO = "/home/pi/Documents/codingIxD/artefact_software/data/BubbleSound.m4a"
 
 # Pins of raspberry pi for the motor
 GPIO_PINS_MOTOR = [18, 17, 27, 22]
