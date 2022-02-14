@@ -4,8 +4,8 @@ import asyncio
 from settings import (
     CARBON_PER_GB,
     DAILY_CARBON_BUDGET,
-    DEGREE_PER_CARBON,
-    GPIO_PIN_MOTOR,
+    STEPS_PER_CARBON,
+    GPIO_PINS_MOTOR,
     PATH_TO_AUDIO,
 )
 from carbon_budget import CurrentCarbonBudget
@@ -61,7 +61,7 @@ class RunArtefact:
         #: A CurrentCarbonBudget object to save the current carbon budget
         self.carbon_budget = CurrentCarbonBudget(DAILY_CARBON_BUDGET)
         #: An Artefact object to have an interface with the artefact
-        self.artefact = Artefact(GPIO_PIN_MOTOR, PATH_TO_AUDIO)
+        self.artefact = Artefact(GPIO_PINS_MOTOR, PATH_TO_AUDIO)
 
     def between_callback(self):
         """
@@ -94,9 +94,9 @@ class RunArtefact:
         used_data = self.traffic_capture.data
         print(f"used data: {used_data}")
         self.traffic_capture.data = 0
-        calculator = Calculator(used_data, CARBON_PER_GB, DEGREE_PER_CARBON)
+        calculator = Calculator(used_data, CARBON_PER_GB, STEPS_PER_CARBON)
         self.carbon_budget.update(calculator.used_carbon)
-        self.artefact.update(calculator.degrees_to_turn)
+        self.artefact.update(calculator.steps_to_turn)
         print(f"budget: {self.carbon_budget.carbon_budget}")
 
     def reset(self):

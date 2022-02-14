@@ -1,6 +1,4 @@
 from RpiMotorLib import RpiMotorLib
-import RPi.GPIO as GPIO
-import math
 import vlc
 
 
@@ -11,14 +9,14 @@ class Artefact:
     """
 
     def __init__(self, gpio_pins_motor, path_to_audio):
-        #: The source gpio pin the motor is connected to
-        self.motor_pins = gpio_pin_motors
+        #: The source gpio pins the motor is connected to
+        self.motor_pins = gpio_pins_motor
         #: Path to the played audio file
         self.audio_file = path_to_audio
         #: Initializing of the connection to the motor
         self.motor = self.init_motor()
         #: Current position of the motor
-        self.current_position = 0  
+        self.current_position = 3800
         #: Bool for ensuring just one warning for 10 percent
         # left
         self.not_warned_10_percent = True
@@ -33,7 +31,7 @@ class Artefact:
 
         :return: A PWM instance
         """
-        motor = RpiMotorLib.BYJMotor("MyMotorOne", "Nema") # GPIO motor_pin als PWM mit 50Hz
+        motor = RpiMotorLib.BYJMotor("MyMotorOne", "Nema")
         return motor
 
     def update(self, step_number):
@@ -45,7 +43,7 @@ class Artefact:
         :param step_number: int describing how many steps to turn
         """
         # updates motor position (artefact shrinking)
-        self.update_position(steps)
+        self.update_position(step_number)
         # warning sound if just 10% of the budget left
         if self.current_position <= 380 & self.not_warned_10_percent:
             self.make_sound()
@@ -57,16 +55,22 @@ class Artefact:
             self.current_position = 0
             self.not_warned_used_up = False
 
-    def update_position(self, step_number, ccwise=True):
+    def update_position(self, step_number, counterclockwise=True):
         """
         Updates the artefact motor by changing the position of the motor
-        and adapts the current postion.
+        and adapts the current position.
 
         :param step_number: int describing how many steps to turn
+        :param counterclockwise: bool indicating to turn counterclockwise or clockwise
         """
-	if self.current_position - step_number < 0:
+        if self.current_position - step_number < 0:
             step_number = self.current_position
-        self.motor.motor_run(self.motor_pins, steps=step_number, steptype="full", ccwise=ccwise) 
+        self.motor.motor_run(
+            self.motor_pins,
+            steps=step_number,
+            steptype="full",
+            counterclockwise=counterclockwise,
+        )
         self.current_position -= step_number
 
     def reset(self):
@@ -75,7 +79,7 @@ class Artefact:
         and resets the current position to zero.
         """
         self.update_position(3800 - self.current_position, False)
-        self.current_position = 3800 
+        self.current_position = 3800
         self.not_warned_10_percent = True
         self.not_warned_used_up = True
 
