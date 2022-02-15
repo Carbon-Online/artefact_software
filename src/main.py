@@ -28,7 +28,7 @@ def main():
         # and ends the connection to the GPIO pins
         traffic_capturing_process.join()
         artefact_running_process.join()
-        GPIO.clean_up()
+        GPIO.cleanup()
 
 
 if __name__ == "__main__":

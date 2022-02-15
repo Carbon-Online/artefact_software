@@ -1,6 +1,7 @@
+import RPi.GPIO as GPIO
 from RpiMotorLib import RpiMotorLib
 import vlc
-
+import time
 
 class Artefact:
     """
@@ -13,8 +14,6 @@ class Artefact:
         self.motor_pins = gpio_pins_motor
         #: Path to the played audio file
         self.audio_file = path_to_audio
-        #: Initializing of the connection to the motor
-        self.motor = self.init_motor()
         #: Current position of the motor
         self.current_position = 3800
         #: Bool for ensuring just one warning for 10 percent
@@ -23,16 +22,6 @@ class Artefact:
         #: Bool for ensuring just one warning for budget
         # used up
         self.not_warned_used_up = True
-
-    def init_motor(self):
-        """
-        Initializes the GPIO pins and connects the raspberry pi with
-        the motor. Turns motor to the start position.
-
-        :return: A PWM instance
-        """
-        motor = RpiMotorLib.BYJMotor("MyMotorOne", "Nema")
-        return motor
 
     def update(self, step_number):
         """
@@ -65,12 +54,10 @@ class Artefact:
         """
         if self.current_position - step_number < 0:
             step_number = self.current_position
-        self.motor.motor_run(
-            self.motor_pins,
-            steps=step_number,
-            steptype="full",
-            ccwise=counterclockwise,
-        )
+        motor = RpiMotorLib.BYJMotor("MyMotorOne", "Nema")
+        time.sleep(0.5)
+        motor.motor_run(self.motor_pins, 0.001, step_number, counterclockwise, False, "full", .05)
+        GPIO.cleanup()
         self.current_position -= step_number
 
     def reset(self):
