@@ -45,11 +45,11 @@ class Artefact:
         # updates motor position (artefact shrinking)
         self.update_position(step_number)
         # warning sound if just 10% of the budget left
-        if self.current_position <= 380 & self.not_warned_10_percent:
+        if self.current_position <= 380 and self.not_warned_10_percent:
             self.make_sound()
             self.not_warned_10_percent = False
         # warning sound  if budget us used up
-        if self.current_position <= 0 & self.not_warned_10_percent:
+        if self.current_position <= 0 and self.not_warned_used_up:
             self.make_sound()
             self.make_sound()
             self.current_position = 0
