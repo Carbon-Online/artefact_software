@@ -26,6 +26,8 @@ Every hour, the "RunArtefact" process uses this value and updates its CarbonBudg
 
 ![alt text](https://github.com/Carbon-Online/artefact_software/blob/main/data/artefact_software_process_architecture.png)
 
+A settings.py file provides the made value settings for the daily budget, the carbon data equivalents and number of total number of turns of the motor for one daily circle. 
+
 ### Implementation
 The software is developed in debian on a Raspberry pi 3 Model B as it is capable to control a servo motor, display sounds and capture the data traffic. The following system version is used:
 ```
