@@ -13,7 +13,7 @@ This repository contains a software to capture your home network traffic and con
 
 ## Description
 ### Base project
-This application belongs to the CO2NLINE project which was created and implemented as part of the coding IxD lecture of the FU Berlin and the KH Weissensee. The topic of was Digital Souveranity. CO2NLINE is an artefact that visualizes one's digital carbon footprint.
+This application belongs to the CO2NLINE project which was created and implemented as part of the coding IxD lecture of the FU Berlin and the KH Weissensee. The topic was Digital Souveranity. CO2NLINE is an artefact that visualizes one's digital carbon footprint.
 
 ### Functionality and architecture
 The software consists of two independent processes that run simultaneously. On the one hand, there is a process that records the data traffic and stores the amount of data in bytes that is routed via the Fritzbox's internet interface. Second, a carbon budget is updated every hour. According to the emitted carbon equivalent, the state of the artefact is changed by turning a servo motor.
